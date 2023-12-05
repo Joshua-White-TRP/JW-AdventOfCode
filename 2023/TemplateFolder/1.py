@@ -1,0 +1,1 @@
+data = open('Input.txt', 'r').read().split('\n')
