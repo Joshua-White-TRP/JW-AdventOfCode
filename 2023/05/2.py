@@ -27,7 +27,7 @@ for idx, seed in enumerate(seeds):
     else:
         seed_maximums.append(seed_minimums[len(seed_minimums) - 1] + seed - 1)
 
-def getMinimumMap(seed_minimum, seed_maximum, maps_v2, map_v2_index):
+def get_minimum_map(seed_minimum, seed_maximum, maps_v2, map_v2_index):
     map_v2 = maps_v2[map_v2_index]
     recursion_answers = []
     
@@ -46,7 +46,7 @@ def getMinimumMap(seed_minimum, seed_maximum, maps_v2, map_v2_index):
         if(map_v2_index + 1 == len(maps_v2)):
             recursion_answers.append(new_range_minimum)
         else:
-            recursionAnswer = getMinimumMap(new_range_minimum, new_range_maximum, maps_v2, map_v2_index + 1)
+            recursionAnswer = get_minimum_map(new_range_minimum, new_range_maximum, maps_v2, map_v2_index + 1)
             if recursionAnswer != None:
                 recursion_answers.append(recursionAnswer)
     
@@ -58,7 +58,7 @@ def getMinimumMap(seed_minimum, seed_maximum, maps_v2, map_v2_index):
 
 location_minimums = []
 for idx, seed_minimum in enumerate(seed_minimums):
-    newAns = getMinimumMap(seed_minimum, seed_maximums[idx], maps_v2, 0)
+    newAns = get_minimum_map(seed_minimum, seed_maximums[idx], maps_v2, 0)
     if newAns != None:
         location_minimums.append(newAns)
     
