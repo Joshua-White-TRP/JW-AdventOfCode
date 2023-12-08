@@ -10,11 +10,9 @@ for s in strings:
         if idx != len(s) - 1:
             pair = char + s[idx + 1]
             if pair in s.replace(pair, '  ', 1):
-                print(s + ' - ' + pair)
                 duplicate_pair = True
             
         if idx < len(s) - 2 and char == s[idx + 2]:
-            print(s + ' - ' + str(idx))
             gap_letter = True
     
     if duplicate_pair and gap_letter:
