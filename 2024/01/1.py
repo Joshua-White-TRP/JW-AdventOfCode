@@ -6,10 +6,8 @@ right_list = [int(x[1]) for x in splits]
 left_list.sort()
 right_list.sort()
 
-index = 0
 ans = 0
-while index < len(right_list):
+for index in range(len(right_list)):
     ans += abs(left_list[index] - right_list[index])
-    index += 1
     
 print(ans)
