@@ -8,8 +8,8 @@ for x in splits:
 for x in splits:
     ongoing_calcs = [x[1][0]]
     for y in x[1][1:]:
-        ongoing_calcs = list(set(ongoing_calcs))
-        ongoing_calcs.extend(ongoing_calcs)
+        ongoing_calcs = [c for c in list(set(ongoing_calcs)) if c <= x[0]]
+        
         for i in range(len(ongoing_calcs)):
             if i < (len(ongoing_calcs) - 1) / 2:
                 ongoing_calcs[i] += y
