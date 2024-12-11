@@ -37,3 +37,4 @@ for idx, x in enumerate(map):
     if x != '.':
         ans += idx * int(x)
 print(ans)
+print(map)
