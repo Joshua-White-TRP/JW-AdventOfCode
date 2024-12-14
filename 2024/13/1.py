@@ -17,12 +17,6 @@ def search(coords_a, coords_b, destination):
     while a < destination[0] and b < destination[1]:
         x_division = (destination[0] - a) / coords_a[0]
         y_division = (destination[1] - b) / coords_a[1]
-        if coords_a in [puzzles[0][0], puzzles[0][1]]:
-            print('------')
-            print(str(a) + ', ' + str(b) + ' ----- ' + str(destination[0]) + ', ' + str(destination[1]))
-            print(str(x_division) + ' and ' + str(y_division))
-            #print(str(a_pressed) + ' vs ' + str(b_pressed))
-            print(b_pressed)
         
         if x_division == y_division and x_division % 1 == 0:
             a += coords_a[0] * x_division

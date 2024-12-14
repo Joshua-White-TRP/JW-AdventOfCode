@@ -6,7 +6,7 @@ for x in data:
     if "A:" in x or "B:" in x:
         new_puzzle.append([int(v.split('+')[1]) for v in x.split(', ')])
     elif "e:" in x:
-        new_puzzle.append([int(v.split('=')[1]) + coord_added_value for v in x.split(', ')])
+        new_puzzle.append([int(v.split('=')[1]) + 10000000000000 for v in x.split(', ')])
         puzzles.append(new_puzzle)
         new_puzzle = []
 
