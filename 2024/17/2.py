@@ -1,43 +1,29 @@
-data = open('Input.txt', 'r').read().split('\n')
-initial_registers = [int(x.split(': ')[1]) for x in data[0:3]]
-programs = [int(x) for x in data[4].split(': ')[1].split(',')]
+## WARNING: This is a solution hardcoded based on my input to quickly calculate my answer.
+## This approach is possible because my program loops to the beginning and only ever divides A by 8.
+## Because the division of A is consistent this approach can work backwards in ranges from the final value.
+##
+## I may try to do a generic solution for this in future but this will be tricky without other inputs to test with.
 
-a_value = -1
-output = []
-while output != programs:
-    a_value += 1
-    instruction_index = 0
-    registers = [x for x in initial_registers]
-    registers[0] = a_value
-    output = []
+data = open('Input.txt', 'r').read().split('\n')
+programs = [int(x) for x in data[4].split(': ')[1].split(',')]
+programs.reverse()
+vs = [1]
+for x in programs:
+    vs.append(vs[-1] * 8)
+
+tracker = 0
+ranges = [[1,8]]
+while True:
+    valid_nums = []
+    for r in ranges:
+        for a in range(r[0], r[1]):
+            b = (a % 8) ^ 5
+            c = int(a / (2**b))
+            if ((b ^ 6) ^ c) % 8 == programs[tracker]:
+                valid_nums.append(a)
+    ranges = [[v * 8, (v+1)*8] for v in valid_nums]
+    tracker += 1
     
-    if a_value % 100000 == 0:
-        print(a_value)
-    
-    while instruction_index < len(programs):
-        opcode, literal = programs[instruction_index], programs[instruction_index + 1]
-        combo = registers[literal - 4] if literal >= 4 and literal <= 6 else literal
-        new_output_value = combo % 8
-        
-        if opcode == 0: 
-            registers[0] = int(registers[0] / 2**combo)
-        elif opcode == 1:
-            registers[1] = registers[1] ^ literal
-        elif opcode == 2:
-            registers[1] = combo % 8
-        elif opcode == 3 and registers[0] != 0:
-            instruction_index = literal
-            continue
-        elif opcode == 4:
-            registers[1] = registers[1] ^ registers[2]
-        elif opcode == 5 and len(output) < len(programs) and new_output_value == programs[len(output)]:
-            output.append(combo % 8)
-        elif opcode == 5:
-            break
-        elif opcode == 6:
-            registers[1] = int(registers[0] / 2**combo)
-        elif opcode == 7:
-            registers[2] = int(registers[0] / 2**combo)
-        instruction_index += 2
-#print(','.join([str(x) for x in output]))
-print(a_value)
+    if tracker == 16:
+        print(min(valid_nums))
+        break
